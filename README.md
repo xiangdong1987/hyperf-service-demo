@@ -158,8 +158,7 @@ return [   
 composer require hyperf/circuit-breaker
 //控制器中配置熔断器
 /** 
-* @CircuitBreaker(timeout=0.05, failCounter=1, successCounter=1, 
-fallback="App\Service\WorldServiceConsumer::circuitBreakerFallback") 
+* @CircuitBreaker(timeout=0.05, failCounter=1, successCounter=1, fallback="App\Service\WorldServiceConsumer::circuitBreakerFallback") 
 */
 public function circuitBreaker(){    
     $cb = ApplicationContext::getContainer()->get(WorldService::class);    
