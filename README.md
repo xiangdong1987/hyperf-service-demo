@@ -44,6 +44,7 @@ class HelloService{   
     * server 用于和autoconfig 中的server 绑定关系
     * publishTo 服务发现类型
 * 服务提供方配置
+
 ```php
 /**
 * server 配置 autoload/server.php
@@ -64,32 +65,32 @@ return [   
     'uri' => 'http://172.19.0.8:8500',
 ];
 ```
+
 * WorldService 同上服务端口不一致即可
 * 消费方配置
     * consul 保持一致
     * 消费方需要引入提供方的servic接口或者自定义消费接口
     ```php
-        <?php
-        /** * Created by PhpStorm. 
-        * User: xiangdongdong 
-        * Date: 2019/12/13 * Time: 11:05 
-        */
-        namespace App\Service;
-        use Hyperf\RpcClient\AbstractServiceClient;
-        class WorldServiceConsumer extends AbstractServiceClient{    
-            /**     
-            * 定义对应服务提供者的服务名称     
-            * @var string     
-            */    
-            protected $serviceName = 'WorldService';    
-            /**     * 定义对应服务提供者的服务协议     
-            * @var string     
-            */   
-            protected $protocol = 'jsonrpc-http';    
-            public function world(): string    {       
-                return $this->__request(__FUNCTION__, []);    
-            }
+    /** * Created by PhpStorm. 
+    * User: xiangdongdong 
+    * Date: 2019/12/13 * Time: 11:05 
+    */
+    namespace App\Service;
+    use Hyperf\RpcClient\AbstractServiceClient;
+    class WorldServiceConsumer extends AbstractServiceClient{
+        /**     
+        * 定义对应服务提供者的服务名称     
+        * @var string     
+        */    
+        protected $serviceName = 'WorldService';    
+        /**     * 定义对应服务提供者的服务协议     
+        * @var string     
+        */   
+        protected $protocol = 'jsonrpc-http';    
+        public function world(): string    {       
+            return $this->__request(__FUNCTION__, []);    
         }
+    }
     ```
     * 自定义接口需要绑定依赖注入类
     ```php
@@ -180,8 +181,6 @@ public function circuitBreakerFallback(): string
 ## 限流
 * 为了防止流量太大打垮服务器，我们可以采用限流的方式，将一部分流量挡住，再hyperf 中使用限流器进行限制
 ```php
-<?php
-
 namespace App\Controller;
 
 use Hyperf\Di\Aop\ProceedingJoinPoint;
@@ -227,8 +226,7 @@ composer require hyperf/config-etcd
 ```
 * etcd 配置  etcd.php
 ```php
-
-<?phpreturn [
+return [
     'uri' => 'http://192.168.1.200:2379',
     'version' => 'v3beta',
     'options' => [
@@ -237,7 +235,6 @@ composer require hyperf/config-etcd
 ```
 * etcd 中心配置  config_etcd.php
 ```php
-<?php
 return [
     'enable' => true,
     'namespaces' => [
@@ -264,8 +261,6 @@ php bin/hyperf.php vendor:publish hyperf/metric
 ```
 * 配置 metric
 ```php
-<?php
-
 declare(strict_types=1);
 /**
  * This file is part of Hyperf.
@@ -300,8 +295,6 @@ return [
 ```
 * 配置中间件
 ```php
-<?php
-
 declare(strict_types=1);
 /**
  * This file is part of Hyperf.
@@ -341,4 +334,6 @@ return [
     }
 ```
 ## 总结
-    总体感觉hyperf实现服务化是完全可行，并且便利的。主要精力应该是三方开源的方面需要花一些精力，但是总体上还是蛮方便的。我的选择三方开源尽量是Go语言开发，因为Go也更接近于php，也方便与后期需要自定义功能时，也能hold的住，总体感觉下来还是觉得需要一点灵活性，不能被绑死，毕竟代码是死的人是活的，php最重要的就是灵活。总的下来也加深了自己对服务化的认识，方便自己更好的写业务。所有的环境全程使用docker，用了docker后只有两个字真香。
+总体感觉hyperf实现服务化是完全可行，并且便利的。主要精力应该是三方开源的方面需要花一些精力，但是总体上还是蛮方便的。我的选择三方开源尽量是Go语言开发，因为Go也更接近于php，也方便与后期需要自定义功能时，也能hold的住，总体感觉下来还是觉得需要一点灵活性，不能被绑死，毕竟代码是死的人是活的，php最重要的就是灵活。总的下来也加深了自己对服务化的认识，方便自己更好的写业务。所有的环境全程使用docker，用了docker后只有两个字真香。
+
+[docker 环境 ](https://github.com/xiangdong1987/local_env)
