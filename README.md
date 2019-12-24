@@ -16,7 +16,6 @@ composer create-project hyperf/hyperf-skeleton
 
 * Hello service服务
 ``` php
-<?php
 /** 
 * Created by PhpStorm. 
 * User: xiangdongdong 
